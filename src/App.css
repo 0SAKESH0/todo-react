@@ -1,0 +1,131 @@
+body.default-theme {
+  background-color: #d1af6b;
+  color: #111;
+}
+body.light-theme {
+  background-color: #fff;
+  color: #333;
+}
+body.dark-theme {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  padding: 30px;
+  max-width: 700px;
+  margin: auto;
+}
+header {
+  text-align: center;
+  position: relative;
+}
+header h1 {
+  font-size: 36px;
+  margin: 10px 0;
+}
+.calendar-icon {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 24px;
+}
+.theme-switcher {
+  margin-top: 10px;
+}
+.theme-switcher select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Top controls */
+.top-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.top-controls input[type="text"] {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-size: 16px;
+}
+
+.task-container {
+  margin-top: 30px;
+}
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+.task-row input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid currentColor;
+  background: transparent;
+  outline: none;
+  color: inherit;
+}
+input[type="date"] {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 18px;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease-in-out;
+}
+.task-text.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn:hover {
+  background-color: #444;
+}
+
+.no-export {
+  display: inline-block;
+}
+.no-export.hide-print {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .task-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
