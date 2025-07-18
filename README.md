@@ -17,7 +17,9 @@ A fully functional and beautiful **To-Do List** web app built with **React**, su
 
 ## 📸 Screenshot
 
-![Screenshot](https://user-images.githubusercontent.com/your-github-id/todo-app-screenshot.png)
+![Screenshot](public\screenshots\screenshot1.png)
+![Screenshot](public\screenshots\screenshot2.png)
+![Screenshot](public\screenshots\screenshot3.png)
 
 ---
 
