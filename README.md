@@ -17,9 +17,9 @@ A fully functional and beautiful **To-Do List** web app built with **React**, su
 
 ## 📸 Screenshot
 
-![Screenshot](public\screenshots\screenshot1.png)
-![Screenshot](public\screenshots\screenshot2.png)
-![Screenshot](public\screenshots\screenshot3.png)
+![App Screenshot](screenshot1.png)
+![App Screenshot](screenshot2.png)
+![App Screenshot](screenshot3.png)
 
 ---
 
