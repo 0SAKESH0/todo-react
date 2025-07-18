@@ -1,24 +1,15 @@
 import React from "react";
 
-const TaskItem = ({ task, onDelete, onEdit, onToggle }) => {
+function TaskItem({ task, onDelete, onEdit, onToggle }) {
   return (
-    <div className="task-item">
-      <span
-        className={task.completed ? "text completed" : "text"}
-        onClick={() => onToggle(task.id)}
-      >
-        {task.text} {task.date && `(${task.date})`}
-      </span>
-      <div className="actions">
-        <button className="btn" onClick={() => onEdit(task.id)}>
-          ✏️
-        </button>
-        <button className="btn" onClick={() => onDelete(task.id)}>
-          🗑️
-        </button>
+    <li className={`task-item ${task.completed ? "done" : ""}`}>
+      <span onClick={() => onToggle(task.id)}>{task.text} {task.date && ` ${task.date}`}</span>
+      <div>
+        <button className="btn" onClick={() => onEdit(task.id)}> Edit ✏️</button><span> </span>
+        <button className="btn" onClick={() => onDelete(task.id)}> Delete 🗑️</button>
       </div>
-    </div>
+    </li>
   );
-};
+}
 
 export default TaskItem;

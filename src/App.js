@@ -1,105 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import TaskList from "./components/TaskList";
+import { exportToPDF } from "./exportPDF";
+import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
-    const saved = localStorage.getItem('tasks');
+    const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [taskInput, setTaskInput] = useState('');
-  const [taskDate, setTaskDate] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [theme, setTheme] = useState('default');
+  const [input, setInput] = useState("");
+  const [date, setDate] = useState("");
+  const [search, setSearch] = useState("");
 
+  // Theme state
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  // Update localStorage when tasks change
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  // Apply theme to <body>
   useEffect(() => {
-    document.body.className = `${theme}-theme`;
+    document.body.className = theme;
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const addTask = () => {
-    if (taskInput.trim() === '') return;
-    const newTask = {
-      id: Date.now(),
-      text: taskInput,
-      date: taskDate,
-      completed: false
-    };
-    setTasks([newTask, ...tasks]);
-    setTaskInput('');
-    setTaskDate('');
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  const toggleTask = (id) => {
-    setTasks(tasks.map(task => (
-      task.id === id ? { ...task, completed: !task.completed } : task
-    )));
+  const addTask = () => {
+    if (!input.trim()) return alert("Task cannot be empty");
+    const newTask = {
+      id: Date.now(),
+      text: input,
+      date,
+      completed: false,
+    };
+    setTasks([newTask, ...tasks]);
+    setInput("");
+    setDate("");
+  };
+
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+  };
+
+  const editTask = (id) => {
+    const task = tasks.find((t) => t.id === id);
+    const newText = prompt("Edit task:", task.text);
+    if (newText && newText.trim()) {
+      setTasks(tasks.map((t) => (t.id === id ? { ...t, text: newText } : t)));
+    }
+  };
+
+  const toggleComplete = (id) => {
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
   };
 
   const resetTasks = () => {
-    setTasks([]);
+    if (window.confirm("Clear all tasks?")) setTasks([]);
   };
 
-  const filteredTasks = tasks.filter(task =>
-    task.text.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTasks = tasks.filter((t) =>
+    t.text.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="app-container">
-      <header>
+    <div className="container">
+      <div className="row">
         <h1>React To-Do List 📌</h1>
-        <div className="theme-switcher">
-          <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-            <option value="default">Default</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-        </div>
-      </header>
+        <button className="btn" onClick={toggleTheme}>
+          {theme === "light" ? "☀️ Light" : "🌙 Dark"}
+        </button>
+      </div>
 
-      <div className="task-row">
+      <div className="row">
         <input
           type="text"
           placeholder="Enter task..."
-          value={taskInput}
-          onChange={(e) => setTaskInput(e.target.value)}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <input
           type="date"
-          value={taskDate}
-          onChange={(e) => setTaskDate(e.target.value)}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
         />
-        <button className="btn" onClick={addTask}>➕ Add</button>
-        <button className="btn" onClick={resetTasks}>🧹 Reset</button>
+        <button onClick={addTask} className="btn add">➕ Add </button>
+        <button onClick={resetTasks} className="btn reset">🔄 Reset </button>
+        <button onClick={() => exportToPDF(filteredTasks)} className="btn export">📄 Export</button>
       </div>
 
-      <div className="top-controls">
-        <input
-          type="text"
-          placeholder="🔍 Search tasks..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      <input
+        type="text"
+        className="search"
+        placeholder="🔍 Search tasks..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-      <div className="task-container">
-        {filteredTasks.length === 0 ? (
-          <p>No tasks found.</p>
-        ) : (
-          filteredTasks.map(task => (
-            <div key={task.id} className="task-row">
-              <div
-                className={`task-text ${task.completed ? 'completed' : ''}`}
-                onClick={() => toggleTask(task.id)}
-              >
-                {task.text} {task.date && `📅 ${task.date}`}
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <TaskList
+        tasks={filteredTasks}
+        onDelete={deleteTask}
+        onEdit={editTask}
+        onToggle={toggleComplete}
+      />
     </div>
   );
 }

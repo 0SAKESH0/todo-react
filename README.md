@@ -1,35 +1,29 @@
 # 📝 React To-Do List App
 
-A simple and fully functional To-Do List app built with **React.js**.  
-This app includes modern features like theme switching, local storage, PDF export, drag-and-drop, and more!
+A fully functional and beautiful **To-Do List** web app built with **React**, supporting local storage, theme toggle, search, export to PDF, and animations.
 
 ## 🚀 Features
 
-- ✅ Add, Edit, Delete tasks
-- 🌓 Light / Dark / Custom themes
-- 📅 Due date selection
-- 🔍 Search filter
-- 📦 LocalStorage support (persists tasks)
-- 🖨️ Export to PDF (print-friendly)
-- 📱 Mobile responsive design
-- 🔁 Drag-and-drop reordering
-- ☑️ Mark tasks as completed (with strike-through)
+- ✅ Add, edit, delete, reset tasks
+- ✅ Mark tasks as completed (with strike-through)
+- ✅ Date input for task deadlines
+- ✅ Search filter for tasks
+- ✅ Dark / Light theme toggle with persistence 🌙☀️
+- ✅ Export task list as a PDF 📄
+- ✅ Smooth animations when adding/removing tasks
+- ✅ Mobile responsive
 
-## 📸 Preview
+---
 
-![Screenshot](./screenshot.png)
-![Screenshot](./screenshot1.png)
+## 📸 Screenshot
 
-## 🛠️ Tech Stack
+![Screenshot](https://user-images.githubusercontent.com/your-github-id/todo-app-screenshot.png)
 
-- React.js
-- HTML5 + CSS3
-- JavaScript
-- LocalStorage API
+---
 
-## 📦 Installation
+## 🔧 Installation & Running
 
-1. Clone the repository:
+1. **Clone the repo**:
 
 ```bash
 git clone https://github.com/0SAKESH0/todo-react.git
